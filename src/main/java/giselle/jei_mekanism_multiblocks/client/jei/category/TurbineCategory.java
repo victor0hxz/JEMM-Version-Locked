@@ -333,12 +333,13 @@ public class TurbineCategory extends MultiblockCategory<TurbineCategory.TurbineW
 
 		public long getSteamTank(int lowerVolume)
 		{
-			return lowerVolume * MekanismGeneratorsConfig.generators.turbineChemicalPerTank.get();
+			return giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.steamCapacity(lowerVolume);
 		}
 
 		public long getEnergyCapacity(int volume)
 		{
-			return MathUtils.multiplyClamped(MekanismGeneratorsConfig.generators.turbineEnergyCapacityPerVolume.get(), volume);
+			return giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.energyCapacity(volume,
+                    (long) getMaxProduction(getLowerVolume(getRotorCount()), getBladeCount(getRotorCount()), getVentCount()));
 		}
 
 		public int getClampedMaxVentCount(int rotorCount)
@@ -388,7 +389,7 @@ public class TurbineCategory extends MultiblockCategory<TurbineCategory.TurbineW
 		public int getNeededVentCountUnclamped(int lowerVolume)
 		{
 			double flowRate = this.getMaxFlowRateUnclamped(lowerVolume);
-			return Mth.ceil(flowRate / MekanismGeneratorsConfig.generators.turbineVentChemicalFlow.get());
+			return Mth.ceil(flowRate / (MekanismGeneratorsConfig.generators.turbineVentChemicalFlow.get() * giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.throughputMultiplier()));
 		}
 
 		public int getNeededCoilCount(int bladeCount)
@@ -398,13 +399,12 @@ public class TurbineCategory extends MultiblockCategory<TurbineCategory.TurbineW
 
 		public double getMaxFlowRateUnclamped(int lowerVolume)
 		{
-			return lowerVolume * this.getDisperserCount() * MekanismGeneratorsConfig.generators.turbineDisperserChemicalFlow.get();
+			return giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.unclampedFlow(lowerVolume, getDisperserCount());
 		}
 
 		public double getMaxFlowRateClamped(int lowerVolume, int vents)
 		{
-			double unclamped = this.getMaxFlowRateUnclamped(lowerVolume);
-			return Math.min(unclamped, vents * MekanismGeneratorsConfig.generators.turbineVentChemicalFlow.get());
+			return giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.maxFlow(lowerVolume, getDisperserCount(), vents);
 		}
 
 		public long getMaxWaterOutput()
@@ -412,24 +412,10 @@ public class TurbineCategory extends MultiblockCategory<TurbineCategory.TurbineW
 			return (long) this.getCondenserCount() * MekanismGeneratorsConfig.generators.condenserRate.get();
 		}
 
-		public double getMaxProduction(int lowerVolume, int blades, int vents)
-		{
-			double flowRate = this.getMaxFlowRateClamped(lowerVolume, vents);
-
-			if (flowRate > 0.0D)
-			{
-				int coils = this.getNeededCoilCount(lowerVolume);
-				double steamPerBlade = MekanismConfig.general.maxEnergyPerSteam.get() / (double) TurbineValidator.MAX_BLADES;
-				int bladesSupported = coils * MekanismGeneratorsConfig.generators.turbineBladesPerCoil.get();
-				int generationLimiter = Math.min(blades, bladesSupported);
-				return steamPerBlade * (flowRate * generationLimiter);
-			}
-			else
-			{
-				return 0.0D;
-			}
-
-		}
+        public double getMaxProduction(int lowerVolume, int blades, int vents) {
+            return giselle.jei_mekanism_multiblocks.common.util.TurbineGenerationMath.maxProduction(
+                    lowerVolume, getDisperserCount(), blades, getNeededCoilCount(blades), vents);
+        }
 
 		public int getLowerVolume(int rotorCount)
 		{

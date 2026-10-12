@@ -38,3 +38,7 @@ tasks.withType(JavaCompile).configureEach { options.encoding='UTF-8'; options.co
 tasks.named('downloadAssets') {
     javaExecutable.set(javaToolchains.launcherFor { languageVersion=JavaLanguageVersion.of(25) }.map { it.executablePath.asFile.absolutePath })
 }
+
+tasks.named('jar', Jar) {
+ from('LICENSE') { into 'META-INF'; rename { 'LICENSE-JEMM' } }
+}
