@@ -12,6 +12,8 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.input.KeyEvent;
 
 public class CheckBoxWidget extends AbstractWidget
 {
@@ -32,6 +34,21 @@ public class CheckBoxWidget extends AbstractWidget
 	{
 		this.selectedChangedHandlers.add(handler);
 	}
+
+    @Override
+    public void onClick(MouseButtonEvent event, boolean doubleClick) {
+        this.onPress();
+    }
+
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        if (this.active && this.visible && this.isFocused()
+                && (event.key() == 32 || event.key() == 257 || event.key() == 335)) {
+            this.onPress();
+            return true;
+        }
+        return false;
+    }
 
 	public void onPress()
 	{
@@ -89,3 +106,5 @@ public class CheckBoxWidget extends AbstractWidget
 	}
 
 }
+
+

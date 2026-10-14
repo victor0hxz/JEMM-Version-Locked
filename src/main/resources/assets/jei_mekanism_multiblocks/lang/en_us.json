@@ -75,5 +75,18 @@
   "text.jei_mekanism_multiblocks.naquadah.interior": "Interior",
   "text.jei_mekanism_multiblocks.naquadah.configure": "Set input/output",
   "text.jei_mekanism_multiblocks.naquadah.empty": "Keep empty",
-  "text.jei_mekanism_multiblocks.naquadah.example": "Example: 2 ports"
+  "text.jei_mekanism_multiblocks.naquadah.example": "Example: 2 ports",
+  "text.jei_mekanism_multiblocks.guide.hohlraum_laser": "Hohlraum + Laser",
+  "text.jei_mekanism_multiblocks.guide.air_energy": "Air -> Energy",
+  "text.jei_mekanism_multiblocks.naquadah.guide.start": "Build the shown 9 x 9 x 9 rounded reactor with an empty interior, top-center Controller and Lead-Coated Laser Focus Matrix. Insert the Naquadah Hohlraum filled with Naquadah-Uranium Fuel, supply fuel, set an even injection rate (2 to 98), and fire a charged laser into the matrix. Keep supplying fuel and removing heat and outputs.",
+  "text.jei_mekanism_multiblocks.guide.coolant": "Cooling / output",
+  "text.jei_mekanism_multiblocks.naquadah.guide.fuel": "Set the reactor injection rate to the selected even number. Supply %s mB/t each of Rich Naquadah Fuel and Rich Uranium Fuel to input ports; they mix 1:1 into Naquadah-Uranium Fuel. Alternatively supply pre-mixed Naquadah-Uranium Fuel directly. Actual burn depends on plasma temperature and available fuel.",
+  "text.jei_mekanism_multiblocks.fusion.guide.coolant": "Air cooling produces passive energy. Water cooling consumes Water and outputs Steam through a port configured as output; send Steam to an Industrial Turbine and return condensed Water. The listed steam rate assumes a sustained fuel supply, enough Water, a free Steam tank, and stable temperature. Provide an energy connection to remove passive energy.",
+  "text.jei_mekanism_multiblocks.naquadah.guide.coolant": "Optional water cooling consumes Water and outputs Polonium Containing Steam, not normal Steam. Configure a reactor port as output and pipe this chemical to the Extras steam-processing chain shown by JEI. Extract passive energy through an energy connection. Steam output depends on casing temperature, water supply, and free output capacity; this page does not claim a fixed generation rate.",
+  "text.jei_mekanism_multiblocks.naquadah.guide.output": "Polonium Steam",
+  "text.jei_mekanism_multiblocks.guide.water_steam": "Water -> Steam",
+  "text.jei_mekanism_multiblocks.fusion.guide.start": "Build the 5 x 5 x 5 reactor with its Controller and Laser Focus Matrix. Insert a Hohlraum filled with D-T Fuel, supply fuel to input ports, set an even injection rate, and fire a charged laser into the Laser Focus Matrix. Maintain fuel and cooling after ignition. Hover each result for operating assumptions.",
+  "text.jei_mekanism_multiblocks.fusion.guide.fuel": "For separate fuel inputs, supply %s mB/t each of Deuterium and Tritium. Set the reactor injection rate to the selected even number (maximum %s). The two inputs mix 1:1. Higher calculator rates require a sustained supply of pre-mixed D-T Fuel; its burn rate depends on plasma temperature and available fuel.",
+  "text.jei_mekanism_multiblocks.guide.fuel": "Fuel supply",
+  "text.jei_mekanism_multiblocks.guide.start": "Ignition"
 }

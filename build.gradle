@@ -42,3 +42,20 @@ tasks.named('downloadAssets') {
 tasks.named('jar', Jar) {
  from('LICENSE') { into 'META-INF'; rename { 'LICENSE-JEMM' } }
 }
+tasks.register('widgetRegression', JavaExec) {
+ dependsOn testClasses
+ classpath = sourceSets.test.runtimeClasspath
+ mainClass = 'giselle.jei_mekanism_multiblocks.WidgetRegression'
+}
+sourceSets.test.compileClasspath += sourceSets.main.compileClasspath
+sourceSets.test.runtimeClasspath += sourceSets.main.runtimeClasspath
+tasks.named('test') { failOnNoDiscoveredTests = false }
+tasks.named('check') { dependsOn 'widgetRegression' }
+
+if (providers.gradleProperty('clientSmoke').isPresent()) {
+ neoForge.addModdingDependenciesTo(sourceSets.test)
+ neoForge.mods.jei_mekanism_multiblocks.sourceSet sourceSets.test
+ dependencies { runtimeOnly files('H:/Gradle/Mods/Matrix-Output-ATM11/entrega/extras/mekanism_extras-26.1.2-1.4.2-fix6-atm11-0.9.0.jar') }
+ neoForge.runs.client.systemProperty 'jmm.clientSmoke', 'true'
+ neoForge.runs.client.programArguments.addAll('--quickPlaySingleplayer', 'jmm-smoke')
+}

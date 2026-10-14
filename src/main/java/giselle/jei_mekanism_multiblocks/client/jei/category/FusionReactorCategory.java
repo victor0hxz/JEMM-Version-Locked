@@ -223,6 +223,15 @@ public class FusionReactorCategory extends MultiblockCategory<FusionReactorCateg
 		{
 			super.collectResult(consumer);
 
+            ResultWidget fuelGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.fuel"), VolumeTextHelper.formatMBt(this.getInjectionRate()));
+            fuelGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.fusion.guide.fuel", Math.min(this.getInjectionRate(), FusionReactorMultiblockData.MAX_INJECTION) / 2, FusionReactorMultiblockData.MAX_INJECTION));
+            consumer.accept(fuelGuide);
+            ResultWidget coolantGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.coolant"), Component.translatable(this.isWaterCooled() ? "text.jei_mekanism_multiblocks.guide.water_steam" : "text.jei_mekanism_multiblocks.guide.air_energy"));
+            coolantGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.fusion.guide.coolant"));
+            consumer.accept(coolantGuide);
+            ResultWidget startGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.start"), Component.translatable("text.jei_mekanism_multiblocks.guide.hohlraum_laser"));
+            startGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.fusion.guide.start"));
+            consumer.accept(startGuide);
 			int injectionRate = this.getInjectionRate();
 			int limitedInjectionRate = Math.min(injectionRate, FusionReactorMultiblockData.MAX_INJECTION);
 			long waterTank = MekanismGeneratorsConfig.generators.fusionWaterPerInjection.get() * limitedInjectionRate;
@@ -239,7 +248,7 @@ public class FusionReactorCategory extends MultiblockCategory<FusionReactorCateg
 				double waterHeatingRatio = MekanismGeneratorsConfig.generators.fusionWaterHeatingRatio.get();
 				double wateredCasingTemp = MathUtils.multiplyClamped(energyFusionFuel, injectionRate) / (casingThermalConductivity + waterHeatingRatio);
 				double waterHeat = waterHeatingRatio * wateredCasingTemp;
-				steamProduction = (long) (HeatUtils.getSteamEnergyEfficiency() * waterHeat / HeatUtils.getWaterThermalEnthalpy());
+				steamProduction = MathUtils.clampToInt(HeatUtils.getSteamEnergyEfficiency() * waterHeat / HeatUtils.getWaterThermalEnthalpy());
 				steamProduction = Math.min(steamProduction, waterTank);
 
 				double coolingHeat = steamProduction / HeatUtils.getSteamEnergyEfficiency() * HeatUtils.getWaterThermalEnthalpy();
@@ -249,7 +258,7 @@ public class FusionReactorCategory extends MultiblockCategory<FusionReactorCateg
 
 			double fusionThermocoupleEfficiency = MekanismGeneratorsConfig.generators.fusionThermocoupleEfficiency.get();
 			double passiveGeneration = fusionThermocoupleEfficiency * casingThermalConductivity * casingTemp;
-			consumer.accept(new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.result.passive_generation"), EnergyDisplay.of(MathUtils.clampToLong(passiveGeneration)).getTextComponent()));
+			consumer.accept(new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.result.passive_generation"), EnergyDisplay.of(MathUtils.clampToInt(passiveGeneration)).getTextComponent()));
 
 			if (steamProduction > 0L)
 			{
@@ -361,3 +370,4 @@ public class FusionReactorCategory extends MultiblockCategory<FusionReactorCateg
 	}
 
 }
+

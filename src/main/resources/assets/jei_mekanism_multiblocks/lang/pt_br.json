@@ -16,5 +16,18 @@
   "text.jei_mekanism_multiblocks.naquadah.interior": "Interior",
   "text.jei_mekanism_multiblocks.naquadah.configure": "Ajustar entrada/saida",
   "text.jei_mekanism_multiblocks.naquadah.empty": "Manter vazio",
-  "text.jei_mekanism_multiblocks.naquadah.example": "Modelo: 2 portas"
+  "text.jei_mekanism_multiblocks.naquadah.example": "Modelo: 2 portas",
+  "text.jei_mekanism_multiblocks.guide.hohlraum_laser": "Hohlraum + Laser",
+  "text.jei_mekanism_multiblocks.guide.air_energy": "Ar -> Energia",
+  "text.jei_mekanism_multiblocks.naquadah.guide.start": "Monte o reator arredondado 9 x 9 x 9 mostrado, com interior vazio, Controlador no centro superior e Matriz de Foco de Laser Revestida de Chumbo. Insira o Hohlraum de Naquadah cheio de Combustível Naquadah-Urânio, forneça combustível, ajuste injeção par (2 a 98) e dispare um laser carregado na matriz. Mantenha combustível e remova calor e saídas.",
+  "text.jei_mekanism_multiblocks.guide.coolant": "Refrigeração / saída",
+  "text.jei_mekanism_multiblocks.naquadah.guide.fuel": "Ajuste a injeção do reator para o número par selecionado. Forneça %s mB/t de cada um: Combustível Rico em Naquadah e Combustível Rico em Urânio nas portas de entrada; eles se misturam em proporção 1:1 em Combustível Naquadah-Urânio. Também é possível fornecer o combustível pré-misturado diretamente. A queima real depende da temperatura do plasma e do combustível disponível.",
+  "text.jei_mekanism_multiblocks.fusion.guide.coolant": "A refrigeração a ar produz energia passiva. A refrigeração a água consome Água e libera Vapor pela porta configurada como saída; envie o Vapor para uma Turbina Industrial e retorne a Água condensada. A taxa calculada pressupõe combustível contínuo, Água suficiente, espaço no tanque de Vapor e temperatura estável. Conecte uma saída de energia para retirar a energia passiva.",
+  "text.jei_mekanism_multiblocks.naquadah.guide.coolant": "A refrigeração opcional a água consome Água e libera Vapor Contendo Polônio, diferente do Vapor normal. Configure uma porta como saída e envie esse químico para a cadeia de processamento de vapor do Extras mostrada no JEI. Retire a energia passiva por uma conexão de energia. A produção de vapor depende da temperatura da carcaça, da Água e do espaço no tanque de saída; esta página não promete uma taxa fixa de geração.",
+  "text.jei_mekanism_multiblocks.naquadah.guide.output": "Vapor com Polônio",
+  "text.jei_mekanism_multiblocks.guide.water_steam": "Água -> Vapor",
+  "text.jei_mekanism_multiblocks.fusion.guide.start": "Monte o reator 5 x 5 x 5 com Controlador e Matriz de Foco de Laser. Insira um Hohlraum cheio de Combustível D-T, forneça combustível nas portas de entrada, ajuste uma taxa de injeção par e dispare um laser carregado na matriz. Mantenha combustível e refrigeração após a ignição. Passe o mouse nos resultados para ler as condições de operação.",
+  "text.jei_mekanism_multiblocks.fusion.guide.fuel": "Para combustíveis separados, forneça %s mB/t de cada um: Deutério e Trítio. Ajuste a injeção do reator para o número par selecionado (máximo %s). Os dois combustíveis se misturam em proporção 1:1. Taxas maiores na calculadora exigem fornecimento contínuo de Combustível D-T pré-misturado; a queima depende da temperatura do plasma e do combustível disponível.",
+  "text.jei_mekanism_multiblocks.guide.fuel": "Entrada de combustível",
+  "text.jei_mekanism_multiblocks.guide.start": "Ignição"
 }

@@ -25,6 +25,7 @@ public class ContainerWidget extends AbstractWidget
 	private final List<AbstractWidget> unmodifiableFunctionWidgets;
 
 	private AbstractWidget focused;
+    private AbstractWidget keyboardFocused;
 
 	public ContainerWidget(int pX, int pY, int pWidth, int pHeight)
 	{
@@ -86,6 +87,7 @@ public class ContainerWidget extends AbstractWidget
 
 	protected void onChildRemoved(AbstractWidget widget)
 	{
+        if (this.keyboardFocused == widget) { this.keyboardFocused.setFocused(false); this.keyboardFocused = null; }
 		if (this.getFocused() == widget)
 		{
 			this.focused = null;
@@ -131,6 +133,7 @@ public class ContainerWidget extends AbstractWidget
 
 	protected void onFunctionWidgetRemoved(AbstractWidget widget)
 	{
+        if (this.keyboardFocused == widget) { this.keyboardFocused.setFocused(false); this.keyboardFocused = null; }
 		if (this.getFocused() == widget)
 		{
 			this.focused = null;
@@ -258,6 +261,9 @@ public class ContainerWidget extends AbstractWidget
 				{
 					if (widget.mouseClicked(new MouseButtonEvent(childMouseX, childMouseY, event.buttonInfo()), doubleClick))
 					{
+                        if (this.keyboardFocused != null && this.keyboardFocused != widget) this.keyboardFocused.setFocused(false);
+                        this.keyboardFocused = widget;
+                        widget.setFocused(true);
 						this.focused = widget;
 						return true;
 					}
@@ -271,6 +277,20 @@ public class ContainerWidget extends AbstractWidget
 		return super.mouseClicked(event, doubleClick);
 	}
 
+    @Override
+    public boolean keyPressed(KeyEvent event) {
+        return this.active && this.visible && this.keyboardFocused != null
+                && this.keyboardFocused.keyPressed(event);
+    }
+
+    @Override
+    public void setFocused(boolean focused) {
+        super.setFocused(focused);
+        if (!focused && this.keyboardFocused != null) {
+            this.keyboardFocused.setFocused(false);
+            this.keyboardFocused = null;
+        }
+    }
 	@Override
 	public boolean mouseReleased(MouseButtonEvent event)
 	{
@@ -343,3 +363,4 @@ public class ContainerWidget extends AbstractWidget
 	}
 
 }
+

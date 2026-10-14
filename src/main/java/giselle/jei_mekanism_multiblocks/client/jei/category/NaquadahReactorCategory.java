@@ -35,6 +35,7 @@ public class NaquadahReactorCategory extends MultiblockCategory<NaquadahReactorC
         private IntSliderWithButtons ports;
         private IntSliderWithButtons adapters;
         private IntSliderWithButtons layer;
+        private IntSliderWithButtons injection;
 
         public NaquadahWidget() {
             addPreview();
@@ -55,6 +56,8 @@ public class NaquadahReactorCategory extends MultiblockCategory<NaquadahReactorC
                 markNeedUpdate();
             });
             adapters.getSlider().addValueChangeHanlder(value -> markNeedUpdate());
+            consumer.accept(injection = new IntSliderWithButtons(0, 0, 0, 0, "text.jei_mekanism_multiblocks.specs.injection_rate", new giselle.jei_mekanism_multiblocks.client.gui.Mod2IntSliderWidget(0, 0, 0, 0, Component.empty(), 2, 2, 98, 1)));
+            injection.getSlider().addValueChangeHanlder(value -> markNeedUpdate());
             consumer.accept(layer = new IntSliderWithButtons(0, 0, 0, 0, "text.jei_mekanism_multiblocks.naquadah.layer", 1, 1, 9));
         }
 
@@ -88,6 +91,16 @@ public class NaquadahReactorCategory extends MultiblockCategory<NaquadahReactorC
 
         @Override
         protected void collectResult(Consumer<AbstractWidget> consumer) {
+            int rate = injection.getSlider().getValue();
+            ResultWidget fuelGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.fuel"), giselle.jei_mekanism_multiblocks.common.util.VolumeTextHelper.formatMBt(rate));
+            fuelGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.naquadah.guide.fuel", rate / 2));
+            consumer.accept(fuelGuide);
+            ResultWidget coolantGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.coolant"), Component.translatable("text.jei_mekanism_multiblocks.naquadah.guide.output"));
+            coolantGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.naquadah.guide.coolant"));
+            consumer.accept(coolantGuide);
+            ResultWidget startGuide = new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.guide.start"), Component.translatable("text.jei_mekanism_multiblocks.guide.hohlraum_laser"));
+            startGuide.setJeiTooltip(Component.translatable("text.jei_mekanism_multiblocks.naquadah.guide.start"));
+            consumer.accept(startGuide);
             consumer.accept(new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.naquadah.size"), Component.literal("9 x 9 x 9")));
             consumer.accept(new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.naquadah.controller"), Component.translatable("text.jei_mekanism_multiblocks.naquadah.top_center")));
             consumer.accept(new ResultWidget(Component.translatable("text.jei_mekanism_multiblocks.naquadah.shape"), Component.translatable("text.jei_mekanism_multiblocks.naquadah.octagonal")));
@@ -103,3 +116,4 @@ public class NaquadahReactorCategory extends MultiblockCategory<NaquadahReactorC
         @Override public int getDimensionHeightMax() { return 9; }
     }
 }
+
